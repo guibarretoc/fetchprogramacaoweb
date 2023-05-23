@@ -1,37 +1,33 @@
 const lista = document.getElementById("lista");
-const btFato = document.getElementById("btFato");
+const btn = document.getElementById("btn");
 
 let dados = {};
 
-const renderizaLista = (lista, fatos) => {
+const renderizaFoto = (lista, foto) => {
   lista.innerHTML = "";
-    const itemText = document.createTextNode(
-      `${fatos.fact}
-      
-      (Quantidade de caracteres:${fatos.length})`
-    );
-    const listItem = document.createElement("li");
-    listItem.appendChild(itemText);
-    lista.appendChild(listItem);
+    const img = document.createElement("img");
+    img.src = `${foto.message}`;
+
+    lista.appendChild(img);
 };
 
-const getPessoas = (url) => {
+const getFoto = (url) => {
   console.log("antes do fetch");
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
       dados = data;
       console.log(data);
-      renderizaLista(lista, data);
+      renderizaFoto(lista, data);
     });
   console.log("após o fetch");
 };
 
-const handleBtFatoClick = () => {
-  window.location.reload();
+const handleBtnClick = () => {
+    getFoto("https://dog.ceo/api/breeds/image/random");
 };
 
-getPessoas("https://catfact.ninja/fact");
+getFoto("https://dog.ceo/api/breeds/image/random");
 
 
-btFato.onclick = handleBtFatoClick;
+btn.onclick = handleBtnClick;
